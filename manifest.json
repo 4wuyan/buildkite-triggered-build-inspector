@@ -1,0 +1,10 @@
+{
+  "name": "Buildkite Triggered Build Inspector",
+  "description": "Check the statuses of the triggered builds in a Buildkite pipeline, for both async and sync trigger steps.",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": ["activeTab"],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
