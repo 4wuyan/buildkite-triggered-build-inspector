@@ -15,16 +15,10 @@ async function queryBuild(url, listItem) {
   })
 };
 
-document.addEventListener('click', e => {
-  if(e.target.href !== undefined){
-    chrome.tabs.create({url: e.target.href, active: false})
-  }
-});
-
 var allTriggeredBuildsUrlList = []
 var NotPassedUrlList = []
 document.addEventListener('DOMContentLoaded', () => {
-  chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+  browser.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
     const url = new URL(tabs[0].url)
     if (url.hostname === "buildkite.com") {
       getTriggeredBuildsUrlList(url.origin + url.pathname)
@@ -37,10 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('button_not_passed').addEventListener('click', () => {
-    NotPassedUrlList.forEach(u => chrome.tabs.create({url: u, active: false}))
+    NotPassedUrlList.forEach(u => browser.tabs.create({url: u, active: false}))
   });
 
   document.getElementById('button_all').addEventListener('click', () => {
-    allTriggeredBuildsUrlList.forEach(u => chrome.tabs.create({url: u, active: false}))
+    allTriggeredBuildsUrlList.forEach(u => browser.tabs.create({url: u, active: false}))
   });
 });
