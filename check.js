@@ -5,13 +5,17 @@ async function getTriggeredBuildsUrlList(url) {
 
 async function queryBuild(url, listItem) {
   fetch(`${url}.json`).then(r => r.json()).then(buildInfo => {
-    if (buildInfo.state === "passed") {
-      text = `💚 <a href="${url}">${buildInfo.message}</a> passed`
-    } else {
-      text = `💔 <a href="${url}">${buildInfo.message}</a> ${buildInfo.state}`
+    let emoji = "💚"
+    if (buildInfo.state !== "passed") {
+      emoji = "💔"
       NotPassedUrlList.push(url)
     }
-    listItem.innerHTML = text
+    listItem.appendChild(document.createTextNode(`${emoji} `))
+    const a = document.createElement('a')
+    a.href = url
+    a.appendChild(document.createTextNode(buildInfo.message))
+    listItem.appendChild(a)
+    listItem.appendChild(document.createTextNode(` ${buildInfo.state}`))
   })
 };
 
