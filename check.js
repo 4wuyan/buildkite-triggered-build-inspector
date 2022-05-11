@@ -22,7 +22,7 @@ async function queryBuild(url, listItem) {
 var allTriggeredBuildsUrlList = []
 var NotPassedUrlList = []
 document.addEventListener('DOMContentLoaded', () => {
-  browser.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+  chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
     const url = new URL(tabs[0].url)
     if (url.hostname === "buildkite.com") {
       getTriggeredBuildsUrlList(url.origin + url.pathname)
@@ -35,10 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('button_not_passed').addEventListener('click', () => {
-    NotPassedUrlList.forEach(u => browser.tabs.create({url: u, active: false}))
+    NotPassedUrlList.forEach(u => chrome.tabs.create({url: u, active: false}))
   });
 
   document.getElementById('button_all').addEventListener('click', () => {
-    allTriggeredBuildsUrlList.forEach(u => browser.tabs.create({url: u, active: false}))
+    allTriggeredBuildsUrlList.forEach(u => chrome.tabs.create({url: u, active: false}))
   });
 });
