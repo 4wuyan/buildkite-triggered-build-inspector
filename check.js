@@ -13,11 +13,15 @@ async function queryBuild(url, listItem) {
       case "passed":
         emoji = "💚"; break;
       case "started":
+      case "scheduled":
         emoji = "💛"; break;
       case "blocked":
         emoji = "🟩"; break;
+      case "canceled":
+      case "failed":
+        emoji = "💔"; break;
       default:
-        emoji = "💔"
+        emoji = "❔"
     }
     listItem.appendChild(document.createTextNode(`${emoji} `))
     const a = document.createElement('a')
